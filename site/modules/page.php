@@ -8,10 +8,10 @@ class Page {
     }
 
     public function Render($data) {
-        $output = $this->template;
+        $content = $this->template;
         foreach ($data as $key => $value) {
-            $output = str_replace("{{{$key}}}", $value, $output);
+            $content = str_replace("{{{$key}}}", $value, $content);
         }
-        return $output;
+        return $content;
     }
 }

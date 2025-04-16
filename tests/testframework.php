@@ -43,12 +43,4 @@ class TestFramework {
     public function getResult() {
         return "{$this->success} / " . count($this->tests);
     }
-
-    public function getTotalTests() {
-        return count($this->tests);
-    }
-
-    public function getSuccessCount() {
-        return $this->success;
-    }
 }

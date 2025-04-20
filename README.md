@@ -387,6 +387,41 @@ jobs:
 
 ## Verificare 
 - Salvam toate modificarile si efectuam commit si sinc pentru a trimite modificarile pe repositoriul de pe GitHub.
-- Intram in GitHub si accesam repositoriul containers08, intram in secciunea Actions aici vom vedem procesul de testare.
-![alt img](./image/Screenshot%202025-04-20%20192150.png)
-- 
+- Intram in GitHub si accesam repositoriul containers08, intram in secciunea Actions, aici vom vedem procesul de testare a commitului, in timpul testarii el este parcat cu oranj.
+![alt img](./image/Screenshot%202025-04-20%20192241.png)
+- Asteptam sa treca procesul de testare dupa care bulina oranj va trece in rosu daca testarea nu a fost trecuta, sau verde daca a trecut testarea.
+![alt img](./image/Screenshot%202025-04-20%20192509.png)
+- Commitul a fost marcat cu verde, deci el a trecut testul.
+
+## Concluzie
+- În cadrul acestei lucrări de laborator, am învățat să configurăm integrarea continuă (CI) folosind Github Actions pentru un proiect bazat pe containere Docker. Am creat o aplicație Web în PHP, am scris teste unitare pentru a verifica funcționalitățile claselor Database și Page, și am configurat un flux de lucru automatizat care rulează testele la fiecare push pe ramura principală.
+
+# Intrebari
+## Ce este integrarea continuă?
+- Integrarea continuă (CI) este o practică de dezvoltare software în care modificările de cod sunt integrate frecvent (de obicei de mai multe ori pe zi) într-un depozit central. Fiecare integrare este verificată automat prin build-uri și teste pentru a detecta erorile cât mai devreme. În acest laborator, am folosit Github Actions pentru a automatiza acest proces, rulând teste la fiecare push în ramura principală.
+
+## Pentru ce sunt necesare testele unitare? Cât de des trebuie să fie executate?
+- Testele unitare verifică funcționalități individuale (de ex., metode ale unei clase) pentru a asigura corectitudinea lor. În acest proiect, am testat metodele claselor Database și Page (cum ar fi Create(), Read(), Render()).
+
+## Cât de des trebuie rulate?
+- Ideal: La fiecare modificare de cod (commit/push).
+- Minim: Înainte de integrarea în ramura principală.
+
+## Care modificări trebuie făcute în fișierul .github/workflows/main.yml pentru a rula testele la fiecare solicitare de trage (Pull Request)?
+- Pentru a rula testele la fiecare solicitare de tregere in fisierul main.yml trebuie de schimbat sectiunea "on:" astfel:
+```
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+```
+
+## Ce trebuie adăugat în fișierul .github/workflows/main.yml pentru a șterge imaginile create după testare?
+- Pentru a sterge imaginile Docker dupa testare in fisierul main.yml in sectiunea "steps:" trebuie de adaugat la acest cod:
+```
+      - name: Clean up Docker
+        run: |
+          docker rmi containers08
+          docker volume rm database
+```

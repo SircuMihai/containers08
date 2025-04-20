@@ -2,8 +2,9 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -25,3 +26,7 @@ jobs:
         run: docker stop container
       - name: Remove the container
         run: docker rm container
+      - name: Clean up Docker
+        run: |
+          docker rmi containers08
+          docker volume rm database

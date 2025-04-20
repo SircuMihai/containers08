@@ -13,12 +13,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Build the Docker image
         run: docker build -t containers08 .
-      - name: Create and prepare database
-        run: |
-          mkdir -p database
-          sqlite3 database/db.sqlite < ./site/schema.sql
       - name: Create `container`
-        run: docker create --name container --volume $(pwd)/database:/var/www/db containers08
+        run: docker create --name container --volume database:/var/www/db containers08
       - name: Copy tests to the container
         run: docker cp ./tests container:/var/www/html/tests
       - name: Up the container
@@ -29,5 +25,3 @@ jobs:
         run: docker stop container
       - name: Remove the container
         run: docker rm container
-      - name: Clean up
-        run: rm -rf database

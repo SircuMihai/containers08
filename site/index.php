@@ -7,7 +7,7 @@ require_once __DIR__ . '/config.php';
 
 $db = new Database($config["db"]["path"]);
 
-$page = new Page('var/www/html/site/templates/index.tpl');
+$page = new Page("var/www/html/site/templates/index.tpl");
 
 // bad idea, not recommended
 $pageId = $_GET['page'] ?? 1;

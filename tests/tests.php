@@ -65,7 +65,7 @@ function testDbDelete() {
 // test 7: test page rendering
 function testPageRender() {
     global $config;
-    $page = new Page('var/www/html/site/templates/index.tpl');
+    $page = new Page("var/www/html/site/templates/index.tpl");
     $rendered = $page->Render(["title" => "Test", "content" => "Test Content"]);
     return assertExpression(
         strpos($rendered, "Test") !== false && strpos($rendered, "Test Content") !== false,
